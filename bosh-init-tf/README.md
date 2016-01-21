@@ -1,5 +1,7 @@
 ### Prepare an OpenStack environment
 
+Prerequisite: Install [terraform](https://www.terraform.io/intro/getting-started/install.html)
+
 1. Copy `terraform.tfvars.template` to `terraform.tfvars`
 1. Configure `terraform.tfvars`
 1. Execute `prepare_openstack_env.sh`
