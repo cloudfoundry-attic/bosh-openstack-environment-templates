@@ -1,6 +1,6 @@
 # provider configuration
 provider "openstack" {
-  auth_url    = "${var.auth_url}/v2.0"
+  auth_url    = "${var.auth_url}"
   user_name   = "${var.user_name}"
   password    = "${var.password}"
   tenant_name = "${var.tenant_name}"
@@ -11,7 +11,7 @@ provider "openstack" {
 resource "openstack_compute_keypair_v2" "bosh" {
   region     = "${var.region_name}"
   name       = "bosh${var.keypair_suffix}"
-  public_key = "${replace(\"${file(\"bosh.key.pub\")}\",\"\n\",\"\")}"
+  public_key = "${replace(\"${file(\"bosh.pub\")}\",\"\n\",\"\")}"
 }
 
 # security group
