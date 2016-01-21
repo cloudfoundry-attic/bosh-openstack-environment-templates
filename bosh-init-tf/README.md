@@ -11,3 +11,5 @@ Make sure to treat the created `terraform.tfstate` files with care.
 
 If you have the `terraform.tfstate` file available `destroy_openstack_env.sh` will
 destroy the created resources.
+
+*NOTE:* The template uses Keystone V2

@@ -1,9 +1,9 @@
 # provider configuration
 provider "openstack" {
-  auth_url    = "${var.auth_url}"
+  auth_url    = "${var.auth_url}/v2.0"
   user_name   = "${var.user_name}"
   password    = "${var.password}"
-  tenant_name = "${var.tenant_id}"
+  tenant_name = "${var.tenant_name}"
   insecure    = "${var.insecure}"
 }
 

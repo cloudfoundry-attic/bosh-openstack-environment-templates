@@ -5,20 +5,12 @@ variable "auth_url" {
   description = "Authentication endpoint URL for OpenStack provider (only scheme+host+port, but without path!)"
 }
 
-variable "domain_name" {
-  description = "OpenStack domain name"
-}
-
 variable "user_name" {
   description = "OpenStack pipeline technical user name"
 }
 
 variable "password" {
   description = "OpenStack user password"
-}
-
-variable "tenant_id" {
-  description = "OpenStack project/tenant ID"
 }
 
 variable "tenant_name" {
