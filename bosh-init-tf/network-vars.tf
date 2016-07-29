@@ -21,3 +21,8 @@ variable "region_name" {
 variable "availability_zone" {
   description = "OpenStack availability zone name"
 }
+
+variable "dns_nameservers" {
+  description = "Comma-separated list of DNS server IPs"
+  default = "8.8.8.8"
+}

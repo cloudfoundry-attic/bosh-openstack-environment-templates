@@ -17,7 +17,7 @@ resource "openstack_networking_subnet_v2" "bosh_subnet" {
   }
   gateway_ip       = "10.0.1.1"
   enable_dhcp      = "true"
-  dns_nameservers  = ["8.8.8.8"]
+  dns_nameservers  = ["${compact(split(",",var.dns_nameservers))}"]
 }
 
 # router
