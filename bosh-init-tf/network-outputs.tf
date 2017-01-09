@@ -13,3 +13,7 @@ output "network dns" {
 output "network id" {
   value = "${openstack_networking_network_v2.bosh.id}"
 }
+
+output "director private ip" {
+  value = "${cidrhost(openstack_networking_subnet_v2.bosh_subnet.cidr, 10)}"
+}
