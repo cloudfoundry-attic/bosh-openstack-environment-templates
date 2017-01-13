@@ -8,46 +8,52 @@ resource "openstack_compute_keypair_v2" "bosh" {
 }
 
 # security group
-resource "openstack_compute_secgroup_v2" "bosh" {
-  region      = "${var.region_name}"
-  name        = "bosh"
+resource "openstack_networking_secgroup_v2" "secgroup" {
+  region = "${var.region_name}"
+  name = "bosh"
   description = "BOSH Security Group"
+}
 
-  # SSH access from bosh-init
-  rule {
-    ip_protocol = "tcp"
-    from_port   = "22"
-    to_port     = "22"
-    cidr        = "0.0.0.0/0"
-  }
+resource "openstack_networking_secgroup_rule_v2" "secgroup_rule_4" {
+  direction = "ingress"
+  ethertype = "IPv4"
+  protocol = "tcp"
+  port_range_min = 22
+  port_range_max = 22
+  remote_ip_prefix = "0.0.0.0/0"
+  security_group_id = "${openstack_networking_secgroup_v2.secgroup.id}"
+}
 
-  # BOSH Agent access from bosh-init
-  rule {
-    ip_protocol = "tcp"
-    from_port   = "6868"
-    to_port     = "6868"
-    cidr        = "0.0.0.0/0"
-  }
+resource "openstack_networking_secgroup_rule_v2" "secgroup_rule_6" {
+  direction = "ingress"
+  ethertype = "IPv4"
+  protocol = "tcp"
+  port_range_min = 6868
+  port_range_max = 6868
+  remote_ip_prefix = "0.0.0.0/0"
+  security_group_id = "${openstack_networking_secgroup_v2.secgroup.id}"
+}
 
-  # BOSH Director access from CLI
-  rule {
-    ip_protocol = "tcp"
-    from_port   = "25555"
-    to_port     = "25555"
-    cidr        = "0.0.0.0/0"
-  }
+resource "openstack_networking_secgroup_rule_v2" "secgroup_rule_5" {
+  direction = "ingress"
+  ethertype = "IPv4"
+  protocol = "tcp"
+  port_range_min = 25555
+  port_range_max = 25555
+  remote_ip_prefix = "0.0.0.0/0"
+  security_group_id = "${openstack_networking_secgroup_v2.secgroup.id}"
+}
 
-  # Management and data access
-  rule {
-    ip_protocol = "tcp"
-    from_port   = "1"
-    to_port     = "65535"
-    self        = true
-  }
+resource "openstack_networking_secgroup_rule_v2" "secgroup_rule_1" {
+  direction = "ingress"
+  ethertype = "IPv4"
+  protocol = "tcp"
+  remote_group_id = "${openstack_networking_secgroup_v2.secgroup.id}"
+  security_group_id = "${openstack_networking_secgroup_v2.secgroup.id}"
 }
 
 # floating ips
-resource "openstack_compute_floatingip_v2" "bosh" {
+resource "openstack_networking_floatingip_v2" "bosh" {
   region = "${var.region_name}"
   pool   = "${var.ext_net_name}"
 }

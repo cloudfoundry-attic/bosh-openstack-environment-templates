@@ -3,5 +3,5 @@ output "keypair name" {
 }
 
 output "allocated floating ip" {
-  value = "${openstack_compute_floatingip_v2.bosh.address}"
+  value = "${openstack_networking_floatingip_v2.bosh.address}"
 }
