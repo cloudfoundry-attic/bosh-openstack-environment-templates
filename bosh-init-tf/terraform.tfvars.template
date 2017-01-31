@@ -14,8 +14,6 @@ availability_zone = "<availability_zone>"
 
 ext_net_name = "<ext_net_name>"
 ext_net_id = "<ext_net_id>"
-ext_net_cidr ="<ext_net_cidr>"
-
 
 # Disambiguate keypairs with this suffix
 # keypair_suffix = "<keypair_suffix>"
