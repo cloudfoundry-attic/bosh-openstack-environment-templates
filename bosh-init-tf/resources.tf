@@ -15,6 +15,7 @@ resource "openstack_networking_secgroup_v2" "secgroup" {
 }
 
 resource "openstack_networking_secgroup_rule_v2" "secgroup_rule_4" {
+  region = "${var.region_name}"
   direction = "ingress"
   ethertype = "IPv4"
   protocol = "tcp"
@@ -25,6 +26,7 @@ resource "openstack_networking_secgroup_rule_v2" "secgroup_rule_4" {
 }
 
 resource "openstack_networking_secgroup_rule_v2" "secgroup_rule_6" {
+  region = "${var.region_name}"
   direction = "ingress"
   ethertype = "IPv4"
   protocol = "tcp"
@@ -35,6 +37,7 @@ resource "openstack_networking_secgroup_rule_v2" "secgroup_rule_6" {
 }
 
 resource "openstack_networking_secgroup_rule_v2" "secgroup_rule_5" {
+  region = "${var.region_name}"
   direction = "ingress"
   ethertype = "IPv4"
   protocol = "tcp"
@@ -45,6 +48,7 @@ resource "openstack_networking_secgroup_rule_v2" "secgroup_rule_5" {
 }
 
 resource "openstack_networking_secgroup_rule_v2" "secgroup_rule_1" {
+  region = "${var.region_name}"
   direction = "ingress"
   ethertype = "IPv4"
   protocol = "tcp"
