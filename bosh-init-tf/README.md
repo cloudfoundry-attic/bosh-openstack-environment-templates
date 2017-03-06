@@ -1,6 +1,6 @@
 ### Prepare an OpenStack environment
 
-Prerequisite: Install [terraform](https://www.terraform.io/intro/getting-started/install.html)
+Prerequisite: Install [terraform](https://www.terraform.io/intro/getting-started/install.html) >= 0.8.7
 
 1. Clone `git clone https://github.com/cloudfoundry-incubator/bosh-openstack-environment-templates.git`
 1. Create a working directory

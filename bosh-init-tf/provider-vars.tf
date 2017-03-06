@@ -25,6 +25,11 @@ variable "insecure" {
   default = "false"
 }
 
+variable "cacert_file" {
+  description = "Custom CA certificate"
+  default = ""
+}
+
 # external network coordinates
 variable "ext_net_name" {
   description = "OpenStack external network name to register floating IP"
