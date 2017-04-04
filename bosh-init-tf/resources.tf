@@ -14,13 +14,6 @@ resource "openstack_networking_secgroup_v2" "secgroup" {
   description = "BOSH Security Group"
 }
 
-resource "openstack_networking_secgroup_rule_v2" "secgroup_rule_7" {
-  region = "${var.region_name}"
-  direction = "egress"
-  ethertype = "IPv4"
-  security_group_id = "${openstack_networking_secgroup_v2.secgroup.id}"
-}
-
 resource "openstack_networking_secgroup_rule_v2" "secgroup_rule_4" {
   region = "${var.region_name}"
   direction = "ingress"
