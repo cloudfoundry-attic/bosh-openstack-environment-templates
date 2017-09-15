@@ -18,6 +18,7 @@ use_local_blobstore = "<true or false>" #default is true
 
 # enable TCP routing setup
 use_tcp_router = "<true or false>" #default is true
+num_tcp_ports = <number> #default is 100
 
 # in case of self signed certificate select one of the following options
 cacert_file = "<path-to-certificate>"

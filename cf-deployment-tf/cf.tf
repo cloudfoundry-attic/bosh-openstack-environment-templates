@@ -68,6 +68,11 @@ variable "bosh_router_id" {
   description = "ID of the router, which has an interface to the BOSH network"
 }
 
+variable "num_tcp_ports" {
+  default = 100
+  description = "Number of tcp ports, created for tcp routing in Cloud Foundry. Creates required listeners, pools and security rules."
+}
+
 resource "openstack_networking_network_v2" "cf_net" {
   count          = "${length(var.availability_zones)}"
   region         = "${var.region_name}"
@@ -211,9 +216,49 @@ resource "openstack_networking_secgroup_rule_v2" "secgroup_rule_tcp_2222_cf_dieg
   region = "${var.region_name}"
 }
 
+resource "openstack_networking_secgroup_v2" "cf_lb_sec_group" {
+  region      = "${var.region_name}"
+  name        = "cf-lb"
+  description = "Security group which will be assigned to the cf load balancer"
+}
+
+resource "openstack_networking_secgroup_rule_v2" "secgroup_rule_tcp_443_cf_lb" {
+  direction = "ingress"
+  ethertype = "IPv4"
+  protocol = "tcp"
+  port_range_min = 443
+  port_range_max = 443
+  remote_ip_prefix = "0.0.0.0/0"
+  security_group_id = "${openstack_networking_secgroup_v2.cf_lb_sec_group.id}"
+  region = "${var.region_name}"
+}
+
+resource "openstack_networking_secgroup_rule_v2" "secgroup_rule_tcp_2222_cf_lb" {
+  direction = "ingress"
+  ethertype = "IPv4"
+  protocol = "tcp"
+  port_range_min = 2222
+  port_range_max = 2222
+  remote_ip_prefix = "0.0.0.0/0"
+  security_group_id = "${openstack_networking_secgroup_v2.cf_lb_sec_group.id}"
+  region = "${var.region_name}"
+}
+
+resource "openstack_networking_secgroup_rule_v2" "secgroup_rule_tcp_ports_cf_lb" {
+  direction = "ingress"
+  ethertype = "IPv4"
+  protocol = "tcp"
+  port_range_min = 1024
+  port_range_max = "${1024 + var.num_tcp_ports - 1}"
+  remote_ip_prefix = "0.0.0.0/0"
+  security_group_id = "${openstack_networking_secgroup_v2.cf_lb_sec_group.id}"
+  region = "${var.region_name}"
+}
+
 resource "openstack_lb_loadbalancer_v2" "cf-lb" {
   name = "cf-lb"
   vip_subnet_id = "${openstack_networking_subnet_v2.cf_subnet.0.id}"
+  security_group_ids = ["${openstack_networking_secgroup_v2.cf_lb_sec_group.id}"]
   region = "${var.region_name}"
 }
 
@@ -265,7 +310,7 @@ resource "openstack_lb_listener_v2" "cf_tcp_listener" {
 }
 
 resource "openstack_lb_pool_v2" "cf_tcp_pool" {
-  count = "${var.use_tcp_router == "true" ? 3 : 0}"
+  count = "${var.use_tcp_router == "true" ? var.num_tcp_ports : 0}"
   region = "${var.region_name}"
   protocol    = "TCP"
   lb_method   = "ROUND_ROBIN"
@@ -277,16 +322,16 @@ resource "openstack_networking_secgroup_v2" "cf_lb_tcp_router_sec_group" {
   count = "${var.use_tcp_router == "true" ? 1 : 0}"
   region      = "${var.region_name}"
   name        = "cf-lb-tcp-router"
-  description = "Security group which will be assigned to the cloud foundry tcp router VM to receive TCP traffic from the load balancer on port 1024-1123"
+  description = "Security group which will be assigned to the cloud foundry tcp router VM to receive TCP traffic from the load balancer on port 1024-${1024 + var.num_tcp_ports - 1}"
 }
 
-resource "openstack_networking_secgroup_rule_v2" "secgroup_rule_tcp_1024-1123_cf_tcp_router" {
+resource "openstack_networking_secgroup_rule_v2" "secgroup_rule_tcp_ports_cf_tcp_router" {
   count = "${var.use_tcp_router == "true" ? length(var.availability_zones) : 0}"
   direction = "ingress"
   ethertype = "IPv4"
   protocol = "tcp"
   port_range_min = 1024
-  port_range_max = 1123
+  port_range_max = "${1024 + var.num_tcp_ports - 1}"
   remote_ip_prefix = "${element(openstack_networking_subnet_v2.cf_subnet.*.cidr, count.index)}"
   security_group_id = "${openstack_networking_secgroup_v2.cf_lb_tcp_router_sec_group.id}"
   region = "${var.region_name}"
