@@ -301,7 +301,7 @@ resource "openstack_lb_pool_v2" "cf_ssh_pool" {
 }
 
 resource "openstack_lb_listener_v2" "cf_tcp_listener" {
-  count = "${var.use_tcp_router == "true" ? 3 : 0}"
+  count = "${var.use_tcp_router == "true" ? var.num_tcp_ports : 0}"
   region = "${var.region_name}"
   protocol        = "TCP"
   protocol_port   = "${1024 + count.index}"
