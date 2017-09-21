@@ -13,7 +13,7 @@ bosh_router_id = "<bosh-router-id>"
 # in case Openstack has its own DNS servers
 dns_nameservers = ["<dns-server-1>","<dns-server-2>"]
 
-# enable local blobstore setup
+# does BOSH use a local blobstore? Set to 'false', if your BOSH Director uses e.g. S3 to store its blobs
 use_local_blobstore = "<true or false>" #default is true
 
 # enable TCP routing setup
