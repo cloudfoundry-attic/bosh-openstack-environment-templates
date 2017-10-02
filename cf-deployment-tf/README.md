@@ -1,6 +1,9 @@
+### Prerequisites
+
+- Install [`Terraform`](https://www.terraform.io/intro/getting-started/install.html), version should be >=v0.10.0 (to check version execute: `$ terraform version`)
+
 ### Prepare a Cloud Foundry environment
 
-1. Install [terraform](https://www.terraform.io/intro/getting-started/install.html), version should be >=v0.10.0 - `$ terraform version`
 1. Create a working directory: `$ mkdir my-cf-deployment-tf`, `$ cd my-cf-deployment-tf`
 1. Clone repository: `$ git clone https://github.com/cloudfoundry-incubator/bosh-openstack-environment-templates.git repository`
 1. Copy terraform deployment files to working directory: `$ cp repository/cf-deployment-tf/* ./`
