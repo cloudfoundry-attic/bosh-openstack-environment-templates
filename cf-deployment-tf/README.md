@@ -9,9 +9,11 @@
 1. Copy terraform deployment files to working directory: `$ cp repository/cf-deployment-tf/* ./`
 1. Install provider plugins: `$ terraform init`
 1. `terraform-openstack-provider` version should be >=v0.2.2, (to upgrade execute: `$ terraform init -upgrade`)
-1. Execute `$ terraform apply` and follow the instructions, notes:
+1. Create Terraform's variables file: `$ cp terraform.tfvars.template terraform.tfvars`
+1. Adapt `terraform.tfvars` to your needs, notes:
    - the template uses Keystone V3
    - variable `bosh_router_id` is output of the previous BOSH terraform module.
+1. Execute `$ terraform apply`
 
 The terraform scripts will output the Cloud Foundry resource information required for the BOSH manifest.
 Make sure to treat the created `terraform.tfstate` files with care.
