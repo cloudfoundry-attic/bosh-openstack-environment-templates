@@ -13,6 +13,7 @@
 1. Adapt `terraform.tfvars` to your needs, notes:
    - the template uses Keystone V3
    - variable `bosh_router_id` is output of the previous BOSH terraform module.
+   - enabling TCP routing setup (defaults: `use_tcp_router="true" num_tcp_ports=100`), learn more: [Admin Guide - "Enabling TCP Routing"](https://docs.cloudfoundry.org/adminguide/enabling-tcp-routing.html)
 1. Execute `$ terraform apply`
 
 The terraform scripts will output the Cloud Foundry resource information required for the BOSH manifest.
