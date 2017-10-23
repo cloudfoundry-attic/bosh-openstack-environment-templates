@@ -21,5 +21,5 @@ use_tcp_router = "<true or false>" #default is true
 num_tcp_ports = <number> #default is 100, needs to be > 0
 
 # in case of self signed certificate select one of the following options
-cacert_file = "<path-to-certificate>"
-insecure = "<true or false>"
+# cacert_file = "<path-to-certificate>"
+# insecure = "true"
