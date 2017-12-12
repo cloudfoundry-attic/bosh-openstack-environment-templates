@@ -9,6 +9,7 @@ Prerequisite: Install [terraform](https://www.terraform.io/intro/getting-started
 1. Move the generated key pairs to `<working-directory>`
 1. Navigate to `<working-directory>`
     1. Configure `terraform.tfvars`
+    1. Execute `terraform init <cloned-repo-path>/bosh-init-tf`
     1. Execute `terraform apply <cloned-repo-path>/bosh-init-tf`
 
 The terraform scripts will output the OpenStack resource information required for the BOSH manifest.
