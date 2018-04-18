@@ -10,7 +10,7 @@ resource "openstack_compute_keypair_v2" "bosh" {
 # security group
 resource "openstack_networking_secgroup_v2" "secgroup" {
   region = "${var.region_name}"
-  name = "bosh"
+  name = "bosh${var.security_group_suffix}"
   description = "BOSH Security Group"
 }
 

@@ -15,6 +15,9 @@ ext_net_id = "<ext_net_id>"
 # Disambiguate keypairs with this suffix
 # keypair_suffix = "<keypair_suffix>"
 
+# Disambiguate security groups with this suffix
+# security_group_suffix = "<security_group_suffix>"
+
 # in case of self signed certificate select one of the following options
 # cacert_file = "<path-to-certificate>"
 # insecure = "true"
