@@ -7,3 +7,8 @@ variable "keypair_suffix" {
 }
 
 
+# security group
+variable "security_group_suffix" {
+  description = "Disambiguate security groups with this suffix"
+  default = ""
+}
