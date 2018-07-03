@@ -26,7 +26,7 @@ resource "openstack_networking_router_v2" "bosh_router" {
   region           = "${var.region_name}"
   name             = "bosh-router"
   admin_state_up   = "true"
-  external_gateway = "${var.ext_net_id}"
+  external_network_id = "${var.ext_net_id}"
 }
 
 resource "openstack_networking_router_interface_v2" "bosh_port" {
