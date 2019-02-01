@@ -10,7 +10,7 @@ ext_net_name = "<ext_net_name>"
 ext_net_id = "<ext_net_id>"
 
 # in case your OpenStack needs custom nameservers
-# dns_nameservers = 8.8.8.8
+# dns_nameservers = ["8.8.8.8"]
 
 # Disambiguate keypairs with this suffix
 # keypair_suffix = "<keypair_suffix>"
