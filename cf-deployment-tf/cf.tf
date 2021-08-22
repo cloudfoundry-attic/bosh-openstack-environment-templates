@@ -146,6 +146,18 @@ resource "openstack_networking_secgroup_v2" "bosh_sec_group" {
   description = "Security group must be assigned to BOSH director VM. This enables NATS communication and allows the CF VMs to download compiled packages from the local blobstore"
 }
 
+resource "openstack_networking_secgroup_rule_v2" "secgroup_rule_tcp_9443" {
+  direction = "ingress"
+  ethertype = "IPv4"
+  protocol = "tcp"
+  port_range_min = 9443
+  port_range_max = 9443
+  remote_group_id = "${openstack_networking_secgroup_v2.cf_sec_group.id}"
+  security_group_id = "${openstack_networking_secgroup_v2.bosh_sec_group.id}"
+  region = "${var.region_name}"
+}
+
+
 resource "openstack_networking_secgroup_rule_v2" "secgroup_rule_nats_cf" {
   direction = "ingress"
   ethertype = "IPv4"
